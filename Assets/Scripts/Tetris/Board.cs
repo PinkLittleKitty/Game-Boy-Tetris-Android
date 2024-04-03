@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -6,8 +7,17 @@ public class Board : MonoBehaviour
     public Tilemap tilemap { get; private set;}
     public Piece activePiece { get; private set; }
     public TetrominoData[] tetrominoes;
+    private int lastTetromino;
     public Vector3Int spawnPosition;
     public Vector2Int boardSize = new Vector2Int(10, 20);
+
+    public int level = 0;
+    public TextMeshProUGUI levelText;
+    public int lines = 0;
+    private int levelLines = 0;
+    public TextMeshProUGUI linesText;
+    public int score = 0;
+    public TextMeshProUGUI scoreText;
 
     public RectInt Bounds
     {
@@ -22,6 +32,9 @@ public class Board : MonoBehaviour
 
     private void Awake()
     {
+        QualitySettings.vSyncCount = 1;
+	    Application.targetFrameRate = 30;
+
         this.tilemap = this.GetComponentInChildren<Tilemap>();
         this.activePiece = GetComponentInChildren<Piece>();
         playerInput = new Controls();
@@ -38,13 +51,48 @@ public class Board : MonoBehaviour
         SpawnPiece();
     }
 
+    private void Update()
+    {
+        levelText.text = this.level.ToString();
+        linesText.text = this.lines.ToString();
+        scoreText.text = this.score.ToString();
+    }
+
     public void SpawnPiece()
     {
-        int random = Random.Range(0, this.tetrominoes.Length);
-        TetrominoData data = this.tetrominoes[random];
+        TetrominoData data = this.tetrominoes[RandomizeTetromino()];
 
         this.activePiece.Initialize(this, this.spawnPosition, data);
-        Set(this.activePiece);
+
+        if (IsValidPosition(this.activePiece, this.spawnPosition))
+        {
+            Set(this.activePiece);
+        } else {
+            GameOver();
+        }
+    }
+
+    private int RandomizeTetromino()
+    {
+        int random1 = Random.Range(0, this.tetrominoes.Length);
+        if (random1 == lastTetromino)
+        {
+            int random2 = Random.Range(0, this.tetrominoes.Length);
+            lastTetromino = random2;
+            return random2;
+        }
+
+        lastTetromino = random1;
+        return random1;
+    }
+
+    private void GameOver()
+    {
+        this.tilemap.ClearAllTiles();
+        lines = 0;
+        levelLines = 0;
+        level = 0;
+        score = 0;
     }
 
     public void Set(Piece piece)
@@ -67,25 +115,24 @@ public class Board : MonoBehaviour
 
     public bool IsValidPosition(Piece piece, Vector3Int position)
     {
-        RectInt bounds = this.Bounds;
+        RectInt bounds = Bounds;
 
         for (int i = 0; i < piece.cells.Length; i++)
         {
             Vector3Int tilePosition = piece.cells[i] + position;
 
-            if (bounds.Contains((Vector2Int)tilePosition))
-            {
+            if (!bounds.Contains((Vector2Int)tilePosition)) {
                 return false;
             }
 
-            if (this.tilemap.HasTile(tilePosition))
-            {
+            if (tilemap.HasTile(tilePosition)) {
                 return false;
             }
         }
 
         return true;
     }
+
 
     void OnDrawGizmos()
     {
@@ -96,5 +143,81 @@ public class Board : MonoBehaviour
     void DrawRect(RectInt rect)
     {
         Gizmos.DrawWireCube(new Vector3(rect.center.x, rect.center.y, 0.01f), new Vector3(rect.size.x, rect.size.y, 0.01f));
+    }
+
+    public void ClearLines()
+    {
+        RectInt bounds = this.Bounds;
+        int row = bounds.yMin;
+
+        while (row < bounds.yMax)
+        {
+            if (IsLineFull(row))
+            {
+                LineClear(row);
+                lines++;
+                levelLines++;
+                score += 100;
+                CheckLevelLines();
+            } else {
+                row++;
+            }
+        }
+    }
+
+    private void CheckLevelLines()
+    {
+        if (levelLines == 10)
+        {
+            level++;
+            ColourChanger.instance.ChangeColour(Random.Range(0, ColourChanger.instance.colorPalettes.Length));
+            if (activePiece.stepDelay > 0.1f)
+            {
+                activePiece.stepDelay = activePiece.stepDelay - 0.1f;
+            }
+            levelLines = 0;
+        }
+    }
+
+    private bool IsLineFull(int row)
+    {
+        RectInt bounds = this.Bounds;
+
+        for (int col = bounds.xMin; col < bounds.xMax; col++)
+        {
+            Vector3Int position = new Vector3Int(col, row, 0);
+
+            if(!this.tilemap.HasTile(position))
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private void LineClear(int row)
+    {
+        RectInt bounds = this.Bounds;
+
+        for (int col = bounds.xMin; col < bounds.xMax; col++)
+        {
+            Vector3Int position = new Vector3Int(col, row, 0);
+            this.tilemap.SetTile(position, null);
+        }
+
+        while (row < bounds.yMax)
+        {
+            for (int col = bounds.xMin; col < bounds.xMax; col++)
+            {
+                Vector3Int position = new Vector3Int(col, row + 1, 0);
+                TileBase above = this.tilemap.GetTile(position);
+
+                position = new Vector3Int(col, row, 0);
+                this.tilemap.SetTile(position, above);
+            }
+
+            row++;
+        }
     }
 }

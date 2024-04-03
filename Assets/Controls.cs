@@ -46,7 +46,7 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Interact"",
+                    ""name"": ""A"",
                     ""type"": ""Button"",
                     ""id"": ""acf827f1-8765-4d82-8cbf-f5931f3b089e"",
                     ""expectedControlType"": ""Button"",
@@ -55,7 +55,7 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Rotate"",
+                    ""name"": ""B"",
                     ""type"": ""Button"",
                     ""id"": ""eadd830b-f0bc-41f8-b022-f0a2839cb5c8"",
                     ""expectedControlType"": ""Button"",
@@ -251,7 +251,7 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Interact"",
+                    ""action"": ""A"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -262,7 +262,7 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Interact"",
+                    ""action"": ""A"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -273,7 +273,7 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Rotate"",
+                    ""action"": ""B"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -284,7 +284,7 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Rotate"",
+                    ""action"": ""B"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -385,8 +385,8 @@ public partial class @Controls : IInputActionCollection2, IDisposable
         m_Movement = asset.FindActionMap("Movement", throwIfNotFound: true);
         m_Movement_Movement = m_Movement.FindAction("Movement", throwIfNotFound: true);
         m_Movement_SwitchMode = m_Movement.FindAction("SwitchMode", throwIfNotFound: true);
-        m_Movement_Interact = m_Movement.FindAction("Interact", throwIfNotFound: true);
-        m_Movement_Rotate = m_Movement.FindAction("Rotate", throwIfNotFound: true);
+        m_Movement_A = m_Movement.FindAction("A", throwIfNotFound: true);
+        m_Movement_B = m_Movement.FindAction("B", throwIfNotFound: true);
         m_Movement_Up = m_Movement.FindAction("Up", throwIfNotFound: true);
         m_Movement_Left = m_Movement.FindAction("Left", throwIfNotFound: true);
         m_Movement_Down = m_Movement.FindAction("Down", throwIfNotFound: true);
@@ -452,8 +452,8 @@ public partial class @Controls : IInputActionCollection2, IDisposable
     private IMovementActions m_MovementActionsCallbackInterface;
     private readonly InputAction m_Movement_Movement;
     private readonly InputAction m_Movement_SwitchMode;
-    private readonly InputAction m_Movement_Interact;
-    private readonly InputAction m_Movement_Rotate;
+    private readonly InputAction m_Movement_A;
+    private readonly InputAction m_Movement_B;
     private readonly InputAction m_Movement_Up;
     private readonly InputAction m_Movement_Left;
     private readonly InputAction m_Movement_Down;
@@ -464,8 +464,8 @@ public partial class @Controls : IInputActionCollection2, IDisposable
         public MovementActions(@Controls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_Movement_Movement;
         public InputAction @SwitchMode => m_Wrapper.m_Movement_SwitchMode;
-        public InputAction @Interact => m_Wrapper.m_Movement_Interact;
-        public InputAction @Rotate => m_Wrapper.m_Movement_Rotate;
+        public InputAction @A => m_Wrapper.m_Movement_A;
+        public InputAction @B => m_Wrapper.m_Movement_B;
         public InputAction @Up => m_Wrapper.m_Movement_Up;
         public InputAction @Left => m_Wrapper.m_Movement_Left;
         public InputAction @Down => m_Wrapper.m_Movement_Down;
@@ -485,12 +485,12 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                 @SwitchMode.started -= m_Wrapper.m_MovementActionsCallbackInterface.OnSwitchMode;
                 @SwitchMode.performed -= m_Wrapper.m_MovementActionsCallbackInterface.OnSwitchMode;
                 @SwitchMode.canceled -= m_Wrapper.m_MovementActionsCallbackInterface.OnSwitchMode;
-                @Interact.started -= m_Wrapper.m_MovementActionsCallbackInterface.OnInteract;
-                @Interact.performed -= m_Wrapper.m_MovementActionsCallbackInterface.OnInteract;
-                @Interact.canceled -= m_Wrapper.m_MovementActionsCallbackInterface.OnInteract;
-                @Rotate.started -= m_Wrapper.m_MovementActionsCallbackInterface.OnRotate;
-                @Rotate.performed -= m_Wrapper.m_MovementActionsCallbackInterface.OnRotate;
-                @Rotate.canceled -= m_Wrapper.m_MovementActionsCallbackInterface.OnRotate;
+                @A.started -= m_Wrapper.m_MovementActionsCallbackInterface.OnA;
+                @A.performed -= m_Wrapper.m_MovementActionsCallbackInterface.OnA;
+                @A.canceled -= m_Wrapper.m_MovementActionsCallbackInterface.OnA;
+                @B.started -= m_Wrapper.m_MovementActionsCallbackInterface.OnB;
+                @B.performed -= m_Wrapper.m_MovementActionsCallbackInterface.OnB;
+                @B.canceled -= m_Wrapper.m_MovementActionsCallbackInterface.OnB;
                 @Up.started -= m_Wrapper.m_MovementActionsCallbackInterface.OnUp;
                 @Up.performed -= m_Wrapper.m_MovementActionsCallbackInterface.OnUp;
                 @Up.canceled -= m_Wrapper.m_MovementActionsCallbackInterface.OnUp;
@@ -513,12 +513,12 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                 @SwitchMode.started += instance.OnSwitchMode;
                 @SwitchMode.performed += instance.OnSwitchMode;
                 @SwitchMode.canceled += instance.OnSwitchMode;
-                @Interact.started += instance.OnInteract;
-                @Interact.performed += instance.OnInteract;
-                @Interact.canceled += instance.OnInteract;
-                @Rotate.started += instance.OnRotate;
-                @Rotate.performed += instance.OnRotate;
-                @Rotate.canceled += instance.OnRotate;
+                @A.started += instance.OnA;
+                @A.performed += instance.OnA;
+                @A.canceled += instance.OnA;
+                @B.started += instance.OnB;
+                @B.performed += instance.OnB;
+                @B.canceled += instance.OnB;
                 @Up.started += instance.OnUp;
                 @Up.performed += instance.OnUp;
                 @Up.canceled += instance.OnUp;
@@ -539,8 +539,8 @@ public partial class @Controls : IInputActionCollection2, IDisposable
     {
         void OnMovement(InputAction.CallbackContext context);
         void OnSwitchMode(InputAction.CallbackContext context);
-        void OnInteract(InputAction.CallbackContext context);
-        void OnRotate(InputAction.CallbackContext context);
+        void OnA(InputAction.CallbackContext context);
+        void OnB(InputAction.CallbackContext context);
         void OnUp(InputAction.CallbackContext context);
         void OnLeft(InputAction.CallbackContext context);
         void OnDown(InputAction.CallbackContext context);

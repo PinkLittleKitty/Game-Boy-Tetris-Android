@@ -24,7 +24,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 27723
+  controlID: 54529
 --- !u!114 &2
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -97,18 +97,18 @@ MonoBehaviour:
       y: 21
       width: 826
       height: 364
-    m_Scale: {x: 0.18958333, y: 0.18958333}
-    m_Translation: {x: 413, y: 182}
+    m_Scale: {x: 0.41250896, y: 0.41250896}
+    m_Translation: {x: 413, y: 284.5086}
     m_MarginLeft: 0
     m_MarginRight: 0
     m_MarginTop: 0
     m_MarginBottom: 0
     m_LastShownAreaInsideMargins:
       serializedVersion: 2
-      x: -2178.4617
-      y: -960
-      width: 4356.9233
-      height: 1920
+      x: -1001.19037
+      y: -689.7028
+      width: 2002.3807
+      height: 882.4051
     m_MinimalGUI: 1
   m_defaultScale: 0.18958333
   m_LastWindowPixelSize: {x: 826, y: 385}
@@ -141,7 +141,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 200}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 27724
+  controlID: 54502
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -166,7 +166,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 27725
+  controlID: 54503
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -224,9 +224,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: ce7f0000
-      m_LastClickedID: 32718
-      m_ExpandedIDs: 5aeaffffc2f8ffffe27d0000407e0000787e0000967e0000e47e0000427f0000647f0000c07f0000ce7f0000
+      m_SelectedIDs: 74c0ffff
+      m_LastClickedID: -16268
+      m_ExpandedIDs: a49efdff74c0ffff5aeaffffc2f8ffffe27d0000787e0000967e0000e47e0000427f0000647f0000c07f0000ce7f0000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -398,8 +398,8 @@ MonoBehaviour:
     - dockPosition: 1
       containerId: overlay-toolbar__top
       floating: 0
-      collapsed: 1
-      displayed: 1
+      collapsed: 0
+      displayed: 0
       snapOffset: {x: -88, y: -92}
       snapOffsetDelta: {x: 0, y: 0}
       snapCorner: 3
@@ -531,7 +531,7 @@ MonoBehaviour:
       containerId: overlay-toolbar__top
       floating: 0
       collapsed: 0
-      displayed: 0
+      displayed: 1
       snapOffset: {x: 0, y: 0}
       snapOffsetDelta: {x: 0, y: 0}
       snapCorner: 0
@@ -559,9 +559,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 0.43301538, y: 5.403698, z: -95.53787}
+    m_Target: {x: 5.290101, y: 0.41457286, z: -2.859135}
     speed: 2
-    m_Value: {x: 0.43301538, y: 5.403698, z: -95.53787}
+    m_Value: {x: 5.290101, y: 0.41457286, z: -2.859135}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -612,9 +612,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 6.380696
+    m_Target: 6.116139
     speed: 2
-    m_Value: 6.380696
+    m_Value: 6.116139
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -800,21 +800,21 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets
+    - Assets/Sprites
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets
+  - Assets/Sprites
   m_LastFoldersGridSize: -1
   m_LastProjectPath: D:\WeasUnity2\Game-Boy-Tetris-Android
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 79}
-    m_SelectedIDs: 4e840000
-    m_LastClickedID: 33870
+    scrollPos: {x: 0, y: 268}
+    m_SelectedIDs: 5a840000
+    m_LastClickedID: 33882
     m_ExpandedIDs: 000000004e840000508400005284000054840000568400005a8400005c8400005e840000608400006284000064840000668400006884000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -868,10 +868,10 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: ce7f0000
-    m_LastClickedInstanceID: 32718
+    m_SelectedInstanceIDs: 74c0ffff
+    m_LastClickedInstanceID: -16268
     m_HadKeyboardFocusLastEvent: 0
-    m_ExpandedInstanceIDs: c6230000fe64000036b6000000000000a6750000e67500003c7400009ec300000ac1000050a1020058870000e88b0000de83000020870000
+    m_ExpandedInstanceIDs: c6230000fe64000036b6000000000000a6750000e67500003c7400009ec300000ac1000050a1020058870000e88b0000de8300002087000036a70000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -895,7 +895,7 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
     m_NewAssetIndexInList: -1
-    m_ScrollPosition: {x: 0, y: 89}
+    m_ScrollPosition: {x: 0, y: 0}
     m_GridSize: 64
   m_SkipHiddenPackages: 0
   m_DirectoriesAreaWidth: 207
@@ -957,7 +957,7 @@ MonoBehaviour:
     m_SaveData: []
   m_LockTracker:
     m_IsLocked: 0
-  m_LastSelectedObjectID: 32718
+  m_LastSelectedObjectID: -16268
 --- !u!114 &15
 MonoBehaviour:
   m_ObjectHideFlags: 52
