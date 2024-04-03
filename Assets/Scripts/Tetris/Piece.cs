@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class Piece : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class Piece : MonoBehaviour
     public float stepDelay = 1f;
     public float lockDelay = 0.5f;
 
+    private float moveTime;
     private float stepTime;
     private float lockTime;
 
@@ -21,6 +23,7 @@ public class Piece : MonoBehaviour
         this.position = position;
         this.data = data;
         this.rotationIndex = 0;
+        this.moveTime = Time.time;
         this.stepTime = Time.time + this.stepDelay;
         this.lockTime = 0f;
 
@@ -49,17 +52,30 @@ public class Piece : MonoBehaviour
             Rotate(-1);
         }
 
-        if (this.board.playerInput.Movement.Left.WasPressedThisFrame())
+        if (this.board.playerInput.Movement.Left.IsPressed())
         {
-            Move(Vector2Int.left);
-        } else if (this.board.playerInput.Movement.Right.WasPressedThisFrame())
+            if (Time.time >= this.moveTime)
+            {
+                Move(Vector2Int.left);
+                this.moveTime = Time.time + 0.2f;
+            }
+        } 
+        else if (this.board.playerInput.Movement.Right.IsPressed())
         {
-            Move(Vector2Int.right);
+            if (Time.time >= this.moveTime)
+            {
+                Move(Vector2Int.right);
+                this.moveTime = Time.time + 0.2f;
+            }
         }
 
         if (this.board.playerInput.Movement.Down.IsPressed())
         {
-            Move(Vector2Int.down);
+            if (Time.time >= this.moveTime)
+            {
+                Move(Vector2Int.down);
+                this.moveTime = Time.time + 0.05f;
+            }
         }
 
         if (this.board.playerInput.Movement.Up.WasPressedThisFrame())
@@ -89,10 +105,11 @@ public class Piece : MonoBehaviour
 
     private void HardDrop()
     {
-        while (Move(Vector2Int.down)) { 
+        while (Move(Vector2Int.down, true)) { 
+            this.board.score += 5;
             continue;
         }
-
+        
         Lock();
     }
 
@@ -101,9 +118,10 @@ public class Piece : MonoBehaviour
         this.board.Set(this);
         this.board.ClearLines();
         this.board.SpawnPiece();
+        AudioManager.instance.PlaySfx(GlobalSfx.Land);
     }
 
-    private bool Move(Vector2Int translation)
+    private bool Move(Vector2Int translation, bool ignoreSound = false)
     {
         Vector3Int newPosition = position;
         newPosition.x += translation.x;
@@ -114,6 +132,10 @@ public class Piece : MonoBehaviour
         if (valid) {
             this.position = newPosition;
             this.lockTime = 0f;
+            if (!ignoreSound)
+            {
+                AudioManager.instance.PlaySfx(GlobalSfx.Move);
+            }
         }
 
         return valid;
@@ -131,6 +153,8 @@ public class Piece : MonoBehaviour
             this.rotationIndex = originalRotation;
             ApplyRotationMatrix(-direction);
         }
+
+        AudioManager.instance.PlaySfx(GlobalSfx.Rotate);
     }
 
     private void ApplyRotationMatrix(int direction)

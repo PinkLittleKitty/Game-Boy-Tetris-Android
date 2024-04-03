@@ -170,6 +170,7 @@ public class Board : MonoBehaviour
         if (levelLines == 10)
         {
             level++;
+            AudioManager.instance.PlaySfx(GlobalSfx.LevelUp);
             ColourChanger.instance.ChangeColour(Random.Range(0, ColourChanger.instance.colorPalettes.Length));
             if (activePiece.stepDelay > 0.1f)
             {

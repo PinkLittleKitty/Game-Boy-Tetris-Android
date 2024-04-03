@@ -81,6 +81,8 @@
     <Compile Include="Assets\Scripts\Tetris\Data.cs" />
     <Compile Include="Assets\Scripts\Tetris\Board.cs" />
     <Compile Include="Assets\Scripts\Tetris\Piece.cs" />
+    <Compile Include="Assets\Scripts\MainMenu.cs" />
+    <Compile Include="Assets\Scripts\Utilities\DestroyMovementOverTime.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

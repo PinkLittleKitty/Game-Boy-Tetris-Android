@@ -3258,7 +3258,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.7
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -3356,9 +3356,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sfxAudioSource: {fileID: 4342737202283838223}
   musicAudioSource: {fileID: 4342737203017200949}
-  clickOkClip: {fileID: 8300000, guid: 113bfe07f3b1f184380fbaca3d2f3b80, type: 3}
-  errorClip: {fileID: 8300000, guid: 09dbd978f5915b04d98f319b71ad075d, type: 3}
-  grabClip: {fileID: 8300000, guid: 196605b6950721a41b93780fb013badf, type: 3}
+  clickOkClip: {fileID: 8300000, guid: 6294e1d00cd13e14d8ab0d5ca3d91090, type: 3}
+  moveClip: {fileID: 8300000, guid: c3639ebf429c40e4f9f0226924c8452f, type: 3}
+  rotateClip: {fileID: 8300000, guid: 7e56bf7c07a992447be33ba07170f174, type: 3}
+  landClip: {fileID: 8300000, guid: 43fb6c7b38e476b46b265d1fa01a9959, type: 3}
+  levelUpClip: {fileID: 8300000, guid: 693da1515f9177b40b019cd5ff2e4f3d, type: 3}
+  gameOverClip: {fileID: 8300000, guid: 7a9cd6a70dd321a4eb98797c0464ee58, type: 3}
 --- !u!4 &4342737202309236774
 Transform:
   m_ObjectHideFlags: 0
@@ -3435,7 +3438,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 5df39732096cb6f46a438ba746d3f44c, type: 3}
+  m_audioClip: {fileID: 8300000, guid: ce86d6088ba8aaa4aaea96cf40fc748a, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.3
   m_Pitch: 1

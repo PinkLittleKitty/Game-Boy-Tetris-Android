@@ -7,8 +7,11 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioSource sfxAudioSource;
     [SerializeField] private AudioSource musicAudioSource;
     [SerializeField] private AudioClip clickOkClip;
-    [SerializeField] private AudioClip errorClip;
-    [SerializeField] private AudioClip grabClip;
+    [SerializeField] private AudioClip moveClip;
+    [SerializeField] private AudioClip rotateClip;
+    [SerializeField] private AudioClip landClip;
+    [SerializeField] private AudioClip levelUpClip;
+    [SerializeField] private AudioClip gameOverClip;
 
     private Dictionary<GlobalSfx, AudioClip> _clipsDictionary = new Dictionary<GlobalSfx, AudioClip>();
     
@@ -22,8 +25,11 @@ public class AudioManager : MonoBehaviour
     void Start()
     {
         _clipsDictionary[GlobalSfx.Click] = clickOkClip;
-        _clipsDictionary[GlobalSfx.Error] = errorClip;
-        _clipsDictionary[GlobalSfx.Grab] = grabClip;
+        _clipsDictionary[GlobalSfx.Move] = moveClip;
+        _clipsDictionary[GlobalSfx.Rotate] = rotateClip;
+        _clipsDictionary[GlobalSfx.Land] = landClip;
+        _clipsDictionary[GlobalSfx.LevelUp] = levelUpClip;
+        _clipsDictionary[GlobalSfx.GameOver] = gameOverClip;
     }
 
     public void PlaySfx(AudioClip clip)
@@ -67,6 +73,9 @@ public class AudioManager : MonoBehaviour
 public enum GlobalSfx
 {
     Click,
-    Error,
-    Grab
+    Move,
+    Rotate,
+    Land,
+    LevelUp,
+    GameOver
 }
