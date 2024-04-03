@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Door
+  - Package
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - Walls
+  - Water
+  - UI
+  - GbRender
+  - Door
+  - Furniture
+  - InnerWalls
+  - LockedDoor
+  - PasaPack
+  - GameBoyUI
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: BackGround
+    uniqueID: 2175490495
+    locked: 0
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Furniture
+    uniqueID: 225030083
+    locked: 0
+  - name: TopFurniture
+    uniqueID: 2059975939
+    locked: 0
+  - name: Preview
+    uniqueID: 1850601279
+    locked: 0
+  - name: Canvas
+    uniqueID: 1622856267
+    locked: 0
