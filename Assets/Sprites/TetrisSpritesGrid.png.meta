@@ -212,7 +212,7 @@ TextureImporter:
         width: 8
         height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -220,6 +220,27 @@ TextureImporter:
       bones: []
       spriteID: 9e83d8bdfc9c068498be5397be44a968
       internalID: -1421188364
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TetrisSpritesGrid_4
+      rect:
+        serializedVersion: 2
+        x: 167
+        y: 39
+        width: 50
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 61d17c82f57b52944b4831e33d11cbf5
+      internalID: -85582218
       vertices: []
       indices: 
       edges: []
@@ -237,6 +258,7 @@ TextureImporter:
     nameFileIdTable:
       TetrisSpritesGrid_0: 1378374086
       TetrisSpritesGrid_1: 98333249
+      TetrisSpritesGrid_4: -85582218
       TetrisSpritesGrid_2: 262645195
       TetrisSpritesGrid_3: -1421188364
   spritePackingTag: 

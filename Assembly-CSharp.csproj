@@ -63,26 +63,30 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Reescaling\AnchorGameObject.cs" />
+    <Compile Include="Assets\Scripts\Utilities\DestroyMovementOverTime.cs" />
     <Compile Include="Assets\Scripts\ColorPalette.cs" />
     <Compile Include="Assets\Scripts\Reescaling\CameraViewportHandler.cs" />
     <Compile Include="Assets\Scripts\Utilities\DestroyOnAnimFinished.cs" />
+    <Compile Include="Assets\Scripts\Tetris\Data.cs" />
     <Compile Include="Assets\Scripts\Misc\DataSaver.cs" />
     <Compile Include="Assets\Scripts\Misc\LogSaverAndSender.cs" />
     <Compile Include="Assets\Scripts\GB\GBRender.cs" />
     <Compile Include="Assets\Scripts\ColourChanger.cs" />
     <Compile Include="Assets\Scripts\AudioManager.cs" />
+    <Compile Include="Assets\Scripts\Tetris\Piece.cs" />
+    <Compile Include="Assets\Scripts\MainMenu.cs" />
     <Compile Include="Assets\Scripts\Utilities\SimpleMoveWithSpeed.cs" />
+    <Compile Include="Assets\Scripts\Tetris\Tetromino.cs" />
     <Compile Include="Assets\Controls.cs" />
+    <Compile Include="Assets\Scripts\Tetris\Board.cs" />
     <Compile Include="Assets\Scripts\Utilities\TMPFadeOut.cs" />
     <Compile Include="Assets\Scripts\Utilities\SpriteFadeOut.cs" />
     <Compile Include="Assets\Scripts\Utilities\DestroyAfterTime.cs" />
     <Compile Include="Assets\Scripts\Misc\VersionDisplayer.cs" />
-    <Compile Include="Assets\Scripts\Tetris\Tetromino.cs" />
-    <Compile Include="Assets\Scripts\Tetris\Data.cs" />
-    <Compile Include="Assets\Scripts\Tetris\Board.cs" />
-    <Compile Include="Assets\Scripts\Tetris\Piece.cs" />
-    <Compile Include="Assets\Scripts\MainMenu.cs" />
-    <Compile Include="Assets\Scripts\Utilities\DestroyMovementOverTime.cs" />
+    <Compile Include="Assets\Scripts\VirtualButtons\VirtualButton.cs" />
+    <Compile Include="Assets\Scripts\VirtualButtons\VirtualDPad.cs" />
+    <Compile Include="Assets\Scripts\VirtualButtons\VirtualJoystick.cs" />
+    <Compile Include="Assets\Scripts\VirtualButtons\VirtualJoystickFloating.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
@@ -440,12 +444,12 @@
       <HintPath>Library\PackageCache\com.unity.burst@1.7.3\Unity.Burst.CodeGen\Unity.Burst.Cecil.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Unity.Burst.Cecil.Rocks">
-      <HintPath>Library\PackageCache\com.unity.burst@1.7.3\Unity.Burst.CodeGen\Unity.Burst.Cecil.Rocks.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="Unity.VisualScripting.Antlr3.Runtime">
       <HintPath>Library\PackageCache\com.unity.visualscripting@1.7.8\Runtime\VisualScripting.Flow\Dependencies\NCalc\Unity.VisualScripting.Antlr3.Runtime.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.Burst.Cecil.Rocks">
+      <HintPath>Library\PackageCache\com.unity.burst@1.7.3\Unity.Burst.CodeGen\Unity.Burst.Cecil.Rocks.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json">
@@ -1194,7 +1198,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="VirtualButtonsScripts.csproj" />
+    <ProjectReference Include="CandyCoded.HapticFeedback.iOS.csproj" />
+    <ProjectReference Include="CandyCoded.HapticFeedback.Android.csproj" />
+    <ProjectReference Include="CandyCoded.HapticFeedback.csproj" />
   </ItemGroup>
   <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
   <ItemGroup>

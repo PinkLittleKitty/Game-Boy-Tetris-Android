@@ -405,7 +405,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 122459951}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed2f7e1ca694477a5a5f9f0d35c6d395, type: 3}
+  m_Script: {fileID: 11500000, guid: 9aa3fc9ebe5b63a48b663441aa4c3aaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: d2c69bb0d82a0a24aa847b28a4b9581c, type: 3}
@@ -979,7 +979,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 448657838}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed2f7e1ca694477a5a5f9f0d35c6d395, type: 3}
+  m_Script: {fileID: 11500000, guid: 9aa3fc9ebe5b63a48b663441aa4c3aaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: d2c69bb0d82a0a24aa847b28a4b9581c, type: 3}
@@ -1389,7 +1389,7 @@ GameObject:
   - component: {fileID: 952301244}
   - component: {fileID: 952301243}
   - component: {fileID: 952301242}
-  - component: {fileID: 952301241}
+  - component: {fileID: 952301245}
   - component: {fileID: 952301240}
   m_Layer: 12
   m_Name: Button B
@@ -1432,19 +1432,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anchorType: 4
   anchorOffset: {x: 0.57, y: -1.22, z: 0}
---- !u!114 &952301241
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 952301238}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed2f7e1ca694477a5a5f9f0d35c6d395, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 16caf2d530f43a24e9a28fc97746b879, type: 3}
 --- !u!114 &952301242
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1496,6 +1483,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 952301238}
   m_CullTransparentMesh: 0
+--- !u!114 &952301245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 952301238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9aa3fc9ebe5b63a48b663441aa4c3aaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprite: {fileID: 21300000, guid: 16caf2d530f43a24e9a28fc97746b879, type: 3}
 --- !u!1 &1284583695
 GameObject:
   m_ObjectHideFlags: 0
@@ -1896,7 +1896,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1675707123}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed2f7e1ca694477a5a5f9f0d35c6d395, type: 3}
+  m_Script: {fileID: 11500000, guid: 9aa3fc9ebe5b63a48b663441aa4c3aaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: 16caf2d530f43a24e9a28fc97746b879, type: 3}
@@ -2047,7 +2047,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1846800051}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a412b7ad262882a48bb3cdbb170e2f0, type: 3}
+  m_Script: {fileID: 11500000, guid: fb418ed8e44402a4f8883c20d31cceb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   centerArea: {fileID: 1613762320}
@@ -2057,7 +2057,7 @@ MonoBehaviour:
   movementRange: 10
   moveThreshold: 0
   uiMovementRange: 10
-  forceIntValue: 0
+  forceIntValue: 1
   directionImages:
   - {fileID: 384083882}
   - {fileID: 1978838966}

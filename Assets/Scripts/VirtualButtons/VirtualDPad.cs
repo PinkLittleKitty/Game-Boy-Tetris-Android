@@ -1,8 +1,10 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem.Layouts;
 using UnityEngine.InputSystem.OnScreen;
 using UnityEngine.UI;
+using CandyCoded.HapticFeedback;
+
 
 public enum VirtualDPadDirection { Both, Horizontal, Vertical }
 
@@ -56,6 +58,7 @@ public class VirtualDPad : OnScreenControl, IPointerDownHandler, IPointerUpHandl
             throw new System.ArgumentNullException(nameof(eventData));
 
         OnDrag(eventData);
+        HapticFeedback.LightFeedback();
     }
 
     public void OnDrag(PointerEventData eventData)

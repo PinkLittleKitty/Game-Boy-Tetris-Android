@@ -19,7 +19,7 @@
     <RootNamespace></RootNamespace>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <AssemblyName>VirtualButtonsScripts</AssemblyName>
+    <AssemblyName>CandyCoded.HapticFeedback</AssemblyName>
     <TargetFramework>netstandard2.1</TargetFramework>
     <BaseDirectory>.</BaseDirectory>
   </PropertyGroup>
@@ -62,16 +62,11 @@
     <Analyzer Include="C:\Users\jerem\.vscode\extensions\visualstudiotoolsforunity.vstuc-1.0.1\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\VirtualButtonsForUnity\VirtualButtonsForUnity\Scripts\VirtualJoystickFloating.cs" />
-    <Compile Include="Assets\VirtualButtonsForUnity\VirtualButtonsForUnity\Examples\Scripts\PlayerActionsExample.cs" />
-    <Compile Include="Assets\VirtualButtonsForUnity\VirtualButtonsForUnity\Examples\Scripts\PlayerControllerExample.cs" />
-    <Compile Include="Assets\VirtualButtonsForUnity\VirtualButtonsForUnity\Scripts\VirtualJoystick.cs" />
-    <Compile Include="Assets\VirtualButtonsForUnity\VirtualButtonsForUnity\Scripts\VirtualDPad.cs" />
-    <Compile Include="Assets\VirtualButtonsForUnity\VirtualButtonsForUnity\Scripts\VirtualButton.cs" />
+    <Compile Include="Library\PackageCache\xyz.candycoded.hapticfeedback@4597a0376e\Scripts\HapticFeedback.cs" />
+    <Compile Include="Library\PackageCache\xyz.candycoded.hapticfeedback@4597a0376e\Scripts\HapticFeedbackController.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\VirtualButtonsForUnity\VirtualButtonsForUnity\Examples\Scripts\VirtualButtonsExamplesScripts.asmref" />
-    <None Include="Assets\VirtualButtonsForUnity\VirtualButtonsForUnity\Scripts\VirtualButtonsScripts.asmdef" />
+    <None Include="Library\PackageCache\xyz.candycoded.hapticfeedback@4597a0376e\CandyCoded.HapticFeedback.asmdef" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
@@ -966,10 +961,6 @@
       <HintPath>D:\Unity\2021.3.15f1\Editor\Data\NetStandard\compat\2.1.0\shims\netfx\System.Xml.Serialization.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Unity.InputSystem">
-      <HintPath>Library\ScriptAssemblies\Unity.InputSystem.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="UnityEditor.UI">
       <HintPath>Library\ScriptAssemblies\UnityEditor.UI.dll</HintPath>
       <Private>False</Private>
@@ -980,6 +971,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="CandyCoded.HapticFeedback.Android.csproj" />
+    <ProjectReference Include="CandyCoded.HapticFeedback.iOS.csproj" />
   </ItemGroup>
   <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
   <ItemGroup>

@@ -19,6 +19,9 @@ public class Board : MonoBehaviour
     public int score = 0;
     public TextMeshProUGUI scoreText;
 
+    public GameObject gameOverPanel;
+    public bool isGameOver;
+
     public RectInt Bounds
     {
         get
@@ -53,13 +56,25 @@ public class Board : MonoBehaviour
 
     private void Update()
     {
-        levelText.text = this.level.ToString();
-        linesText.text = this.lines.ToString();
-        scoreText.text = this.score.ToString();
+        if (isGameOver)
+        {
+            if (Input.anyKeyDown)
+            {
+                Restart();
+            }
+        }
+        else
+        {
+            levelText.text = this.level.ToString();
+            linesText.text = this.lines.ToString();
+            scoreText.text = this.score.ToString();
+        }
     }
 
     public void SpawnPiece()
     {
+        if (isGameOver) return;
+
         TetrominoData data = this.tetrominoes[RandomizeTetromino()];
 
         this.activePiece.Initialize(this, this.spawnPosition, data);
@@ -88,7 +103,17 @@ public class Board : MonoBehaviour
 
     private void GameOver()
     {
+        isGameOver = true;
         this.tilemap.ClearAllTiles();
+        this.gameObject.GetComponent<Piece>().enabled = false;
+        gameOverPanel.SetActive(true);
+    }
+
+    private void Restart()
+    {
+        this.gameObject.GetComponent<Piece>().enabled = true;
+        isGameOver = false;
+        gameOverPanel.SetActive(false);
         lines = 0;
         levelLines = 0;
         level = 0;

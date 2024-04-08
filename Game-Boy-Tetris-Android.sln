@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp.csproj", "{69B9A965-723C-F039-CCE8-1C3792C89EF3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VirtualButtonsScripts", "VirtualButtonsScripts.csproj", "{7DF0BDBF-D8AE-8EEC-FA4F-D10695D9D636}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandyCoded.HapticFeedback.Android", "CandyCoded.HapticFeedback.Android.csproj", "{4841BBB6-658C-818D-5A69-3F08438BD12E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandyCoded.HapticFeedback.iOS", "CandyCoded.HapticFeedback.iOS.csproj", "{5B1132C6-5723-0EFE-2FD1-99D97DC400DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandyCoded.HapticFeedback", "CandyCoded.HapticFeedback.csproj", "{8635F7E2-3B0A-C61C-97FE-F76BCA763ED3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,10 +19,18 @@ Global
 		{69B9A965-723C-F039-CCE8-1C3792C89EF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{69B9A965-723C-F039-CCE8-1C3792C89EF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{69B9A965-723C-F039-CCE8-1C3792C89EF3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7DF0BDBF-D8AE-8EEC-FA4F-D10695D9D636}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7DF0BDBF-D8AE-8EEC-FA4F-D10695D9D636}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7DF0BDBF-D8AE-8EEC-FA4F-D10695D9D636}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7DF0BDBF-D8AE-8EEC-FA4F-D10695D9D636}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4841BBB6-658C-818D-5A69-3F08438BD12E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4841BBB6-658C-818D-5A69-3F08438BD12E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4841BBB6-658C-818D-5A69-3F08438BD12E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4841BBB6-658C-818D-5A69-3F08438BD12E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B1132C6-5723-0EFE-2FD1-99D97DC400DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B1132C6-5723-0EFE-2FD1-99D97DC400DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B1132C6-5723-0EFE-2FD1-99D97DC400DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B1132C6-5723-0EFE-2FD1-99D97DC400DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8635F7E2-3B0A-C61C-97FE-F76BCA763ED3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8635F7E2-3B0A-C61C-97FE-F76BCA763ED3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8635F7E2-3B0A-C61C-97FE-F76BCA763ED3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8635F7E2-3B0A-C61C-97FE-F76BCA763ED3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
