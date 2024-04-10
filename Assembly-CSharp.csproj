@@ -63,6 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Reescaling\AnchorGameObject.cs" />
+    <Compile Include="Assets\Scripts\VirtualButtons\VirtualJoystick.cs" />
     <Compile Include="Assets\Scripts\Utilities\DestroyMovementOverTime.cs" />
     <Compile Include="Assets\Scripts\ColorPalette.cs" />
     <Compile Include="Assets\Scripts\Reescaling\CameraViewportHandler.cs" />
@@ -72,6 +73,9 @@
     <Compile Include="Assets\Scripts\Misc\LogSaverAndSender.cs" />
     <Compile Include="Assets\Scripts\GB\GBRender.cs" />
     <Compile Include="Assets\Scripts\ColourChanger.cs" />
+    <Compile Include="Assets\Scripts\VirtualButtons\VirtualJoystickFloating.cs" />
+    <Compile Include="Assets\Scripts\VirtualButtons\VirtualButton.cs" />
+    <Compile Include="Assets\Scripts\VirtualButtons\VirtualDPad.cs" />
     <Compile Include="Assets\Scripts\AudioManager.cs" />
     <Compile Include="Assets\Scripts\Tetris\Piece.cs" />
     <Compile Include="Assets\Scripts\MainMenu.cs" />
@@ -83,10 +87,6 @@
     <Compile Include="Assets\Scripts\Utilities\SpriteFadeOut.cs" />
     <Compile Include="Assets\Scripts\Utilities\DestroyAfterTime.cs" />
     <Compile Include="Assets\Scripts\Misc\VersionDisplayer.cs" />
-    <Compile Include="Assets\Scripts\VirtualButtons\VirtualButton.cs" />
-    <Compile Include="Assets\Scripts\VirtualButtons\VirtualDPad.cs" />
-    <Compile Include="Assets\Scripts\VirtualButtons\VirtualJoystick.cs" />
-    <Compile Include="Assets\Scripts\VirtualButtons\VirtualJoystickFloating.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
@@ -1199,8 +1199,8 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="CandyCoded.HapticFeedback.iOS.csproj" />
-    <ProjectReference Include="CandyCoded.HapticFeedback.Android.csproj" />
     <ProjectReference Include="CandyCoded.HapticFeedback.csproj" />
+    <ProjectReference Include="CandyCoded.HapticFeedback.Android.csproj" />
   </ItemGroup>
   <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
   <ItemGroup>
