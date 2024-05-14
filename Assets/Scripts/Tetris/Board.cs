@@ -24,6 +24,8 @@ public class Board : MonoBehaviour
     public GameObject gameOverPanel;
     public bool isGameOver;
 
+    private DreamloLeaderboard dreamloLeaderboard;
+
     public RectInt Bounds
     {
         get
@@ -53,6 +55,7 @@ public class Board : MonoBehaviour
 
     private void Start()
     {
+        dreamloLeaderboard = GetComponent<DreamloLeaderboard>();
         SpawnPiece();
     }
 
@@ -109,10 +112,12 @@ public class Board : MonoBehaviour
         this.tilemap.ClearAllTiles();
         this.gameObject.GetComponent<Piece>().enabled = false;
         gameOverPanel.SetActive(true);
+        dreamloLeaderboard.UploadScore(score);
+
         lines = 0;
         levelLines = 0;
         level = 0;
-        score = 0; // Reset the score
+        score = 0;
     }
 
     private void Restart()

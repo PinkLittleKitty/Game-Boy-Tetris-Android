@@ -1108,6 +1108,7 @@ GameObject:
   - component: {fileID: 567295591}
   - component: {fileID: 567295593}
   - component: {fileID: 567295594}
+  - component: {fileID: 567295595}
   m_Layer: 0
   m_Name: Board
   m_TagString: Untagged
@@ -1177,6 +1178,7 @@ MonoBehaviour:
   lines: 0
   linesText: {fileID: 413267068}
   score: 0
+  scorePerLine: 100
   scoreText: {fileID: 954706642}
   gameOverPanel: {fileID: 1346338640}
   isGameOver: 0
@@ -1194,6 +1196,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stepDelay: 1
   lockDelay: 0.5
+--- !u!114 &567295595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 567295590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31bfc581ec036a84e80b0e2358b90fe8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  privateCode: SSP239NKWkaxF6bi-98MBQOchDS7bqd0K3ynDmYBi2eQ
+  publicCode: 6643a24e8f40bbf3ac201d21
 --- !u!1 &696522953
 GameObject:
   m_ObjectHideFlags: 0

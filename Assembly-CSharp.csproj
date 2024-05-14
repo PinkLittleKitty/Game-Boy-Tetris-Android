@@ -87,6 +87,7 @@
     <Compile Include="Assets\Scripts\Utilities\SpriteFadeOut.cs" />
     <Compile Include="Assets\Scripts\Utilities\DestroyAfterTime.cs" />
     <Compile Include="Assets\Scripts\Misc\VersionDisplayer.cs" />
+    <Compile Include="Assets\Scripts\DreamloLeaderboard.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
