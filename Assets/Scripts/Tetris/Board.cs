@@ -17,6 +17,8 @@ public class Board : MonoBehaviour
     private int levelLines = 0;
     public TextMeshProUGUI linesText;
     public int score = 0;
+    public int scorePerLine = 100;
+
     public TextMeshProUGUI scoreText;
 
     public GameObject gameOverPanel;
@@ -107,6 +109,10 @@ public class Board : MonoBehaviour
         this.tilemap.ClearAllTiles();
         this.gameObject.GetComponent<Piece>().enabled = false;
         gameOverPanel.SetActive(true);
+        lines = 0;
+        levelLines = 0;
+        level = 0;
+        score = 0; // Reset the score
     }
 
     private void Restart()
@@ -174,6 +180,7 @@ public class Board : MonoBehaviour
     {
         RectInt bounds = this.Bounds;
         int row = bounds.yMin;
+        int clearedLines = 0; // Keep track of the number of lines cleared
 
         while (row < bounds.yMax)
         {
@@ -182,13 +189,33 @@ public class Board : MonoBehaviour
                 LineClear(row);
                 lines++;
                 levelLines++;
-                score += 100;
-                CheckLevelLines();
-            } else {
+                clearedLines++;
+            }
+            else
+            {
                 row++;
             }
         }
+
+        switch (clearedLines)
+        {
+            case 1:
+                score += scorePerLine * 1;
+                break;
+            case 2:
+                score += scorePerLine * 3;
+                break;
+            case 3:
+                score += scorePerLine * 5;
+                break;
+            case 4:
+                score += scorePerLine * 8;
+                break;
+        }
+
+        CheckLevelLines();
     }
+
 
     private void CheckLevelLines()
     {
