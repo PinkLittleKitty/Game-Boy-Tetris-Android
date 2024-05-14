@@ -11,7 +11,7 @@ public class DreamloLeaderboard : MonoBehaviour
 
     private void Start()
     {
-        PlayerPrefs.SetInt("PersonalBest", 0);
+        lastPersonalBest = PlayerPrefs.GetInt("PersonalBest", 0);
         Debug.Log("PB: " + lastPersonalBest);
     }
 
