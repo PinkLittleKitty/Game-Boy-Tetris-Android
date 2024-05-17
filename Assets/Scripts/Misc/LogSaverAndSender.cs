@@ -76,7 +76,6 @@ public class LogSaverAndSender : MonoBehaviour
         string date = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:sszzz");
 
         if (loadedData != null && loadedData.logInfoList != null
-
             && loadedData.logInfoList.Count > 0)
         {
 

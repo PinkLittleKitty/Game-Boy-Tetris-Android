@@ -12,16 +12,29 @@ public class MainMenu : MonoBehaviour
     {
         if (Input.anyKeyDown && !IsAlreadyChangingScene)
         {
-            
-            AudioManager.instance.PlaySfx(GlobalSfx.Click);
-            blackFade.SetTrigger("StartBlackFade");
-            Invoke("LoadGame", 1.5f);
-            IsAlreadyChangingScene = true;
+            if (PlayerPrefs.GetInt("NameSubmitted", 0) == 1)
+            {
+                AudioManager.instance.PlaySfx(GlobalSfx.Click);
+                blackFade.SetTrigger("StartBlackFade");
+                Invoke("LoadGame", 1.5f);
+                IsAlreadyChangingScene = true;
+            }
+            else
+            {
+                AudioManager.instance.PlaySfx(GlobalSfx.Click);
+                blackFade.SetTrigger("StartBlackFade");
+                Invoke("LoadName", 1.5f);
+                IsAlreadyChangingScene = true;
+            }
         }
     }
 
     private void LoadGame()
     {
         SceneManager.LoadScene(2);
+    }
+    private void LoadName()
+    {
+        SceneManager.LoadScene(3);
     }
 }

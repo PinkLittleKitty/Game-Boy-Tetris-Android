@@ -71,6 +71,7 @@
     <Compile Include="Assets\Scripts\Tetris\Data.cs" />
     <Compile Include="Assets\Scripts\Misc\DataSaver.cs" />
     <Compile Include="Assets\Scripts\Misc\LogSaverAndSender.cs" />
+    <Compile Include="Assets\Scripts\DreamloLeaderboard.cs" />
     <Compile Include="Assets\Scripts\GB\GBRender.cs" />
     <Compile Include="Assets\Scripts\ColourChanger.cs" />
     <Compile Include="Assets\Scripts\VirtualButtons\VirtualJoystickFloating.cs" />
@@ -81,13 +82,13 @@
     <Compile Include="Assets\Scripts\MainMenu.cs" />
     <Compile Include="Assets\Scripts\Utilities\SimpleMoveWithSpeed.cs" />
     <Compile Include="Assets\Scripts\Tetris\Tetromino.cs" />
+    <Compile Include="Assets\Scripts\NameEntryScreen.cs" />
     <Compile Include="Assets\Controls.cs" />
     <Compile Include="Assets\Scripts\Tetris\Board.cs" />
     <Compile Include="Assets\Scripts\Utilities\TMPFadeOut.cs" />
     <Compile Include="Assets\Scripts\Utilities\SpriteFadeOut.cs" />
     <Compile Include="Assets\Scripts\Utilities\DestroyAfterTime.cs" />
     <Compile Include="Assets\Scripts\Misc\VersionDisplayer.cs" />
-    <Compile Include="Assets\Scripts\DreamloLeaderboard.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

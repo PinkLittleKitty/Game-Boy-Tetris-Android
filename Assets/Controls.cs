@@ -37,9 +37,18 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""SwitchMode"",
+                    ""name"": ""Select"",
                     ""type"": ""Button"",
                     ""id"": ""a32debce-b772-4ffd-a771-e9efff6f6dde"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Start"",
+                    ""type"": ""Button"",
+                    ""id"": ""92b21020-32ab-46bd-ac81-91b3fb13f074"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -229,7 +238,7 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""SwitchMode"",
+                    ""action"": ""Select"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -240,7 +249,7 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""SwitchMode"",
+                    ""action"": ""Select"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -375,6 +384,28 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                     ""action"": ""Right"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4b3cbc21-fe60-48c1-892a-26d5740cc7d7"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Start"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""184e8d17-73e1-495c-ab94-404157c99c5a"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Start"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -384,7 +415,8 @@ public partial class @Controls : IInputActionCollection2, IDisposable
         // Movement
         m_Movement = asset.FindActionMap("Movement", throwIfNotFound: true);
         m_Movement_Movement = m_Movement.FindAction("Movement", throwIfNotFound: true);
-        m_Movement_SwitchMode = m_Movement.FindAction("SwitchMode", throwIfNotFound: true);
+        m_Movement_Select = m_Movement.FindAction("Select", throwIfNotFound: true);
+        m_Movement_Start = m_Movement.FindAction("Start", throwIfNotFound: true);
         m_Movement_A = m_Movement.FindAction("A", throwIfNotFound: true);
         m_Movement_B = m_Movement.FindAction("B", throwIfNotFound: true);
         m_Movement_Up = m_Movement.FindAction("Up", throwIfNotFound: true);
@@ -451,7 +483,8 @@ public partial class @Controls : IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Movement;
     private IMovementActions m_MovementActionsCallbackInterface;
     private readonly InputAction m_Movement_Movement;
-    private readonly InputAction m_Movement_SwitchMode;
+    private readonly InputAction m_Movement_Select;
+    private readonly InputAction m_Movement_Start;
     private readonly InputAction m_Movement_A;
     private readonly InputAction m_Movement_B;
     private readonly InputAction m_Movement_Up;
@@ -463,7 +496,8 @@ public partial class @Controls : IInputActionCollection2, IDisposable
         private @Controls m_Wrapper;
         public MovementActions(@Controls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_Movement_Movement;
-        public InputAction @SwitchMode => m_Wrapper.m_Movement_SwitchMode;
+        public InputAction @Select => m_Wrapper.m_Movement_Select;
+        public InputAction @Start => m_Wrapper.m_Movement_Start;
         public InputAction @A => m_Wrapper.m_Movement_A;
         public InputAction @B => m_Wrapper.m_Movement_B;
         public InputAction @Up => m_Wrapper.m_Movement_Up;
@@ -482,9 +516,12 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                 @Movement.started -= m_Wrapper.m_MovementActionsCallbackInterface.OnMovement;
                 @Movement.performed -= m_Wrapper.m_MovementActionsCallbackInterface.OnMovement;
                 @Movement.canceled -= m_Wrapper.m_MovementActionsCallbackInterface.OnMovement;
-                @SwitchMode.started -= m_Wrapper.m_MovementActionsCallbackInterface.OnSwitchMode;
-                @SwitchMode.performed -= m_Wrapper.m_MovementActionsCallbackInterface.OnSwitchMode;
-                @SwitchMode.canceled -= m_Wrapper.m_MovementActionsCallbackInterface.OnSwitchMode;
+                @Select.started -= m_Wrapper.m_MovementActionsCallbackInterface.OnSelect;
+                @Select.performed -= m_Wrapper.m_MovementActionsCallbackInterface.OnSelect;
+                @Select.canceled -= m_Wrapper.m_MovementActionsCallbackInterface.OnSelect;
+                @Start.started -= m_Wrapper.m_MovementActionsCallbackInterface.OnStart;
+                @Start.performed -= m_Wrapper.m_MovementActionsCallbackInterface.OnStart;
+                @Start.canceled -= m_Wrapper.m_MovementActionsCallbackInterface.OnStart;
                 @A.started -= m_Wrapper.m_MovementActionsCallbackInterface.OnA;
                 @A.performed -= m_Wrapper.m_MovementActionsCallbackInterface.OnA;
                 @A.canceled -= m_Wrapper.m_MovementActionsCallbackInterface.OnA;
@@ -510,9 +547,12 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                 @Movement.started += instance.OnMovement;
                 @Movement.performed += instance.OnMovement;
                 @Movement.canceled += instance.OnMovement;
-                @SwitchMode.started += instance.OnSwitchMode;
-                @SwitchMode.performed += instance.OnSwitchMode;
-                @SwitchMode.canceled += instance.OnSwitchMode;
+                @Select.started += instance.OnSelect;
+                @Select.performed += instance.OnSelect;
+                @Select.canceled += instance.OnSelect;
+                @Start.started += instance.OnStart;
+                @Start.performed += instance.OnStart;
+                @Start.canceled += instance.OnStart;
                 @A.started += instance.OnA;
                 @A.performed += instance.OnA;
                 @A.canceled += instance.OnA;
@@ -538,7 +578,8 @@ public partial class @Controls : IInputActionCollection2, IDisposable
     public interface IMovementActions
     {
         void OnMovement(InputAction.CallbackContext context);
-        void OnSwitchMode(InputAction.CallbackContext context);
+        void OnSelect(InputAction.CallbackContext context);
+        void OnStart(InputAction.CallbackContext context);
         void OnA(InputAction.CallbackContext context);
         void OnB(InputAction.CallbackContext context);
         void OnUp(InputAction.CallbackContext context);

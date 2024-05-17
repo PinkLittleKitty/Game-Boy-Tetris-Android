@@ -1564,7 +1564,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enableSave: 1
   enableDiscord: 1
-  webhook_link: https://discord.com/api/webhooks/1223121825215676497/OF8-3Ro5swttRCCLsDTPwUL6IBFwWTC5NEurneWAxwzCn8Qh279KFtpVOH3UvMICJ9-C
+  webhook_link: https://discord.com/api/webhooks/1223121825215676497/OF8-https://discord.com/api/webhooks/1240814064825925632/3FBIooa0bppSKH6eXMUkbzsaygvEYS6F9eJlPnK-ZfboZXN0fhjpE62nkMpg3952jBN9
 --- !u!1 &954706640
 GameObject:
   m_ObjectHideFlags: 0

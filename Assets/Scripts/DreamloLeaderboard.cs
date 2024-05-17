@@ -12,7 +12,6 @@ public class DreamloLeaderboard : MonoBehaviour
     private void Start()
     {
         lastPersonalBest = PlayerPrefs.GetInt("PersonalBest", 0);
-        Debug.Log("PB: " + lastPersonalBest);
     }
 
     public void UploadScore(int score)
@@ -28,7 +27,7 @@ public class DreamloLeaderboard : MonoBehaviour
 
     private IEnumerator UploadScoreCoroutine(int score)
     {
-        string url = webURL + privateCode + "/add/" + WWW.EscapeURL(SystemInfo.deviceUniqueIdentifier) + "/" + score;
+        string url = webURL + privateCode + "/add/" + PlayerPrefs.GetString("PlayerName") + "/" + score;
 
         WWW www = new WWW(url);
         yield return www;
