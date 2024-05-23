@@ -17,7 +17,7 @@ public class Board : MonoBehaviour
     private int levelLines = 0;
     public TextMeshProUGUI linesText;
     public int score = 0;
-    public int scorePerLine = 100;
+    public int baseScorePerLine = 100;
 
     public TextMeshProUGUI scoreText;
 
@@ -185,7 +185,7 @@ public class Board : MonoBehaviour
     {
         RectInt bounds = this.Bounds;
         int row = bounds.yMin;
-        int clearedLines = 0; // Keep track of the number of lines cleared
+        int clearedLines = 0;
 
         while (row < bounds.yMax)
         {
@@ -202,6 +202,7 @@ public class Board : MonoBehaviour
             }
         }
 
+        int scorePerLine = baseScorePerLine * (level + 1);
         switch (clearedLines)
         {
             case 1:
@@ -224,14 +225,14 @@ public class Board : MonoBehaviour
 
     private void CheckLevelLines()
     {
-        if (levelLines == 10)
+        if (levelLines >= 10)
         {
             level++;
             AudioManager.instance.PlaySfx(GlobalSfx.LevelUp);
             ColourChanger.instance.ChangeColour(Random.Range(0, ColourChanger.instance.colorPalettes.Length));
             if (activePiece.stepDelay > 0.1f)
             {
-                activePiece.stepDelay = activePiece.stepDelay - 0.1f;
+                activePiece.stepDelay = activePiece.stepDelay - 0.1f * level;
             }
             levelLines = 0;
         }
