@@ -83,6 +83,7 @@ public class Board : MonoBehaviour
         TetrominoData data = this.tetrominoes[RandomizeTetromino()];
 
         this.activePiece.Initialize(this, this.spawnPosition, data);
+        this.activePiece.stepDelay = 1f;
 
         if (IsValidPosition(this.activePiece, this.spawnPosition))
         {
@@ -232,7 +233,7 @@ public class Board : MonoBehaviour
             ColourChanger.instance.ChangeColour(Random.Range(0, ColourChanger.instance.colorPalettes.Length));
             if (activePiece.stepDelay > 0.1f)
             {
-                activePiece.stepDelay = activePiece.stepDelay - 0.1f * level;
+                activePiece.stepDelay = activePiece.stepDelay - 0.05f;
             }
             levelLines = 0;
         }
