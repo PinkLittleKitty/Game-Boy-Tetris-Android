@@ -16,7 +16,7 @@ public class MainMenu : MonoBehaviour
             {
                 AudioManager.instance.PlaySfx(GlobalSfx.Click);
                 blackFade.SetTrigger("StartBlackFade");
-                Invoke("LoadGame", 1.5f);
+                Invoke("LoadLevelSelect", 1.5f);
                 IsAlreadyChangingScene = true;
             }
             else
@@ -29,10 +29,11 @@ public class MainMenu : MonoBehaviour
         }
     }
 
-    private void LoadGame()
+    private void LoadLevelSelect()
     {
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene("LevelSelect");
     }
+    
     private void LoadName()
     {
         SceneManager.LoadScene(3);

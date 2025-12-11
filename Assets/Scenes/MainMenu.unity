@@ -38,7 +38,6 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -481,7 +480,7 @@ GameObject:
   m_IsActive: 1
 --- !u!95 &158894773
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -498,7 +497,8 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!212 &158894774
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -742,7 +742,6 @@ GameObject:
   - component: {fileID: 354332407}
   - component: {fileID: 354332406}
   - component: {fileID: 354332409}
-  - component: {fileID: 354332408}
   - component: {fileID: 354332410}
   m_Layer: 0
   m_Name: EventSystem
@@ -781,21 +780,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &354332408
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 354332404}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58ae6170e48a99f4395a226003e37601, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enableSave: 1
-  enableDiscord: 1
-  webhook_link: https://discord.com/api/webhooks/1223121825215676497/OF8-https://discord.com/api/webhooks/1240814064825925632/3FBIooa0bppSKH6eXMUkbzsaygvEYS6F9eJlPnK-ZfboZXN0fhjpE62nkMpg3952jBN9
 --- !u!114 &354332409
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1110,6 +1094,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -1155,7 +1140,7 @@ GameObject:
   m_IsActive: 1
 --- !u!95 &556330705
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1172,7 +1157,8 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!212 &556330706
 SpriteRenderer:
   m_ObjectHideFlags: 0

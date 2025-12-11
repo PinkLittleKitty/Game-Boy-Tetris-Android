@@ -9,6 +9,8 @@ public class DreamloLeaderboard : MonoBehaviour
 
     private int lastPersonalBest = 0;
 
+    public string PublicCode => publicCode;
+
     private void Start()
     {
         lastPersonalBest = PlayerPrefs.GetInt("PersonalBest", 0);
