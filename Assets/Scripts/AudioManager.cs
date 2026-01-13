@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour
 {
@@ -13,14 +14,22 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioClip levelUpClip;
     [SerializeField] private AudioClip gameOverClip;
 
+    [Header("Audio Mixer")]
+    [SerializeField] private AudioMixer audioMixer;
+    [SerializeField] private string lowpassParameterName = "Lowpass";
+    [SerializeField] private float muffledLowPassCutoff = 100f;
+    [SerializeField] private float normalLowPassCutoff = 5000f;
+
     private Dictionary<GlobalSfx, AudioClip> _clipsDictionary = new Dictionary<GlobalSfx, AudioClip>();
     
-
+    private bool _isMuffled = false;
     public static AudioManager instance;
     private void Awake()
     {
         if (!instance) instance = this;
         else Destroy(this);
+
+        _isMuffled = PlayerPrefs.GetInt("SoundMuffled", 0) == 1;
     }
     void Start()
     {
@@ -30,6 +39,15 @@ public class AudioManager : MonoBehaviour
         _clipsDictionary[GlobalSfx.Land] = landClip;
         _clipsDictionary[GlobalSfx.LevelUp] = levelUpClip;
         _clipsDictionary[GlobalSfx.GameOver] = gameOverClip;
+
+        if (_isMuffled)
+        {
+            ApplyMuffledVolume();
+        }
+        else
+        {
+            RestoreNormalVolume();
+        }
     }
 
     public void PlaySfx(AudioClip clip)
@@ -67,6 +85,42 @@ public class AudioManager : MonoBehaviour
     {
         _clipsDictionary.TryGetValue(clipKey, out AudioClip clip);
         AudioSource.PlayClipAtPoint(clip, pos);
+    }
+
+    public bool IsMuffled()
+    {
+        return _isMuffled;
+    }
+
+    public void ToggleMuffledSound()
+    {
+        _isMuffled = !_isMuffled;
+        
+        if (_isMuffled)
+        {
+            ApplyMuffledVolume();
+        }
+        else
+        {
+            RestoreNormalVolume();
+        }
+        
+        PlayerPrefs.SetInt("SoundMuffled", _isMuffled ? 1 : 0);
+        PlayerPrefs.Save();
+        
+        Debug.Log("Muffled sound toggled: " + _isMuffled);
+    }
+
+    private void ApplyMuffledVolume()
+    {
+        bool success = audioMixer.SetFloat(lowpassParameterName, muffledLowPassCutoff);
+        Debug.Log("Applied muffled volume. Success: " + success + ", Value: " + muffledLowPassCutoff);
+    }
+    
+    private void RestoreNormalVolume()
+    {
+        bool success = audioMixer.SetFloat(lowpassParameterName, normalLowPassCutoff);
+        Debug.Log("Restored normal volume. Success: " + success + ", Value: " + normalLowPassCutoff);
     }
 }
 

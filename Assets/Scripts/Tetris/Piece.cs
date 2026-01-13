@@ -39,7 +39,7 @@ public class Piece : MonoBehaviour
     }
 
     private void Update()
-    {
+    {        
         this.board.Clear(this);
 
         this.lockTime += Time.deltaTime;
@@ -83,6 +83,11 @@ public class Piece : MonoBehaviour
             HardDrop();
         }
 
+        if (this.board.playerInput.Movement.Select.WasPressedThisFrame())
+        {
+            this.board.HoldPiece();
+        }
+
         if (Time.time >= this.stepTime)
         {
             Step();
@@ -118,7 +123,7 @@ public class Piece : MonoBehaviour
         this.board.Set(this);
         this.board.ClearLines();
         this.board.SpawnPiece();
-        AudioManager.instance.PlaySfx(GlobalSfx.Land);
+        if (AudioManager.instance != null) AudioManager.instance.PlaySfx(GlobalSfx.Land);
     }
 
     private bool Move(Vector2Int translation, bool ignoreSound = false)
@@ -132,7 +137,7 @@ public class Piece : MonoBehaviour
         if (valid) {
             this.position = newPosition;
             this.lockTime = 0f;
-            if (!ignoreSound)
+            if (!ignoreSound && AudioManager.instance != null)
             {
                 AudioManager.instance.PlaySfx(GlobalSfx.Move);
             }
@@ -154,7 +159,7 @@ public class Piece : MonoBehaviour
             ApplyRotationMatrix(-direction);
         }
 
-        AudioManager.instance.PlaySfx(GlobalSfx.Rotate);
+        if (AudioManager.instance != null) AudioManager.instance.PlaySfx(GlobalSfx.Rotate);
     }
 
     private void ApplyRotationMatrix(int direction)

@@ -9,7 +9,13 @@ public class Board : MonoBehaviour
     public TetrominoData[] tetrominoes;
     private int lastTetromino;
     public Vector3Int spawnPosition;
+    
+    [Header("Piece Preview")]
+    public NextPieceDisplay nextPieceDisplay;
     public Vector2Int boardSize = new Vector2Int(10, 20);
+
+    public TetrominoData? heldPiece { get; private set; }
+    public bool canHold { get; private set; } = true;
 
     public int level = 0;
     public TextMeshProUGUI levelText;
@@ -79,8 +85,33 @@ public class Board : MonoBehaviour
     public void SpawnPiece()
     {
         if (isGameOver) return;
+        if (this.tetrominoes == null || this.tetrominoes.Length == 0)
+        {
+            Debug.LogWarning("Board: tetromino list is empty; cannot spawn piece.", this);
+            return;
+        }
 
-        TetrominoData data = this.tetrominoes[RandomizeTetromino()];
+        if (this.activePiece == null)
+        {
+            this.activePiece = GetComponentInChildren<Piece>();
+            if (this.activePiece == null)
+            {
+                Debug.LogError("Board: activePiece component missing; cannot spawn piece.", this);
+                return;
+            }
+        }
+
+        TetrominoData data;
+        
+        if (nextPieceDisplay != null)
+        {
+            nextPieceDisplay.EnsureNextPiece();
+            data = nextPieceDisplay.GetNextPiece();
+        }
+        else
+        {
+            data = this.tetrominoes[RandomizeTetromino()];
+        }
 
         this.activePiece.Initialize(this, this.spawnPosition, data);
         this.activePiece.stepDelay = 1f;
@@ -91,9 +122,11 @@ public class Board : MonoBehaviour
         } else {
             GameOver();
         }
+
+        canHold = true;
     }
 
-    private int RandomizeTetromino()
+    public int RandomizeTetromino()
     {
         int random1 = Random.Range(0, this.tetrominoes.Length);
         if (random1 == lastTetromino)
@@ -119,6 +152,8 @@ public class Board : MonoBehaviour
         levelLines = 0;
         level = 0;
         score = 0;
+        heldPiece = null;
+        canHold = true;
     }
 
     private void Restart()
@@ -130,6 +165,8 @@ public class Board : MonoBehaviour
         levelLines = 0;
         level = 0;
         score = 0;
+        heldPiece = null;
+        canHold = true;
     }
 
     public void Set(Piece piece)
@@ -279,5 +316,41 @@ public class Board : MonoBehaviour
 
             row++;
         }
+    }
+
+    public void HoldPiece()
+    {
+        if (!canHold) return;
+        Clear(activePiece);
+
+        if (heldPiece.HasValue)
+        {
+            TetrominoData currentData = activePiece.data;
+            TetrominoData heldData = heldPiece.Value;
+            
+            heldPiece = currentData;
+            
+            activePiece.Initialize(this, spawnPosition, heldData);
+            
+            if (IsValidPosition(activePiece, spawnPosition))
+            {
+                Set(activePiece);
+            }
+            else
+            {
+                GameOver();
+                return;
+            }
+        }
+        else
+        {
+            heldPiece = activePiece.data;
+            SpawnPiece();
+            return;
+        }
+
+        canHold = false;
+        
+        AudioManager.instance.PlaySfx(GlobalSfx.Rotate);
     }
 }

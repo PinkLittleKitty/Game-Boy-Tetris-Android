@@ -104,15 +104,16 @@ public class VirtualDPad : OnScreenControl, IPointerDownHandler, IPointerUpHandl
         if (pos.y < minMovementRange && pos.y > (minMovementRange * -1)) pos.y = 0;
 
         pos = new Vector2(pos.x / movementRange, pos.y / movementRange);
-        pos.Normalize();
 
         if (forceIntValue)
         {
             if (pos.x < 0) pos.x = -1;
             else if (pos.x > 0) pos.x = 1;
+            else pos.x = 0;
 
             if (pos.y < 0) pos.y = -1;
             else if (pos.y > 0) pos.y = 1;
+            else pos.y = 0;
         }
 
         return pos;
