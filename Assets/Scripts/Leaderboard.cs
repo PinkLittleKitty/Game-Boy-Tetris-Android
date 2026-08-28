@@ -16,7 +16,7 @@ public class Leaderboard : MonoBehaviour
 
     private void Start()
     {
-        lastPersonalBest = PlayerPrefs.GetInt("PersonalBest", 0);
+        lastPersonalBest = PlayerPrefs.GetInt("personalBest", 0);
     }
 
     public void UploadScore(int score)
@@ -24,7 +24,7 @@ public class Leaderboard : MonoBehaviour
         if (score > lastPersonalBest)
         {
             lastPersonalBest = score;
-            PlayerPrefs.SetInt("PersonalBest", lastPersonalBest);
+            PlayerPrefs.SetInt("personalBest", lastPersonalBest);
 
             StartCoroutine(UploadScoreCoroutine(score));
         }
