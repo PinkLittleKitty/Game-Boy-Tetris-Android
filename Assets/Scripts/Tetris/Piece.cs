@@ -28,6 +28,7 @@ public class Piece : MonoBehaviour
 
     public void Initialize(Board board, Vector3Int position, TetrominoData data)
     {
+        this.enabled = true;
         this.board = board;
         this.position = position;
         this.data = data;
@@ -57,6 +58,7 @@ public class Piece : MonoBehaviour
         this.board.Clear(this);
 
         HandleInput();
+        if (!this.enabled) return;
 
         bool isGrounded = !board.IsValidPosition(this, position + Vector3Int.down);
 
@@ -77,6 +79,7 @@ public class Piece : MonoBehaviour
         if (Time.time >= this.stepTime)
         {
             Step();
+            if (!this.enabled) return;
         }
 
         this.board.Set(this);
@@ -135,6 +138,7 @@ public class Piece : MonoBehaviour
         if (this.board.playerInput.Movement.Up.WasPressedThisFrame())
         {
             HardDrop();
+            return;
         }
 
         if (this.board.playerInput.Movement.Select.WasPressedThisFrame())
@@ -173,13 +177,14 @@ public class Piece : MonoBehaviour
         bool isTSpin = CheckTSpin();
 
         this.board.Set(this);
-        this.board.ClearLines(isTSpin);
-        this.board.SpawnPiece();
+        this.enabled = false;
 
         if (AudioManager.instance != null)
         {
             AudioManager.instance.PlaySfx(GlobalSfx.Land);
         }
+
+        this.board.ClearLines(isTSpin);
     }
 
     public bool Move(Vector2Int translation, bool ignoreSound = false)

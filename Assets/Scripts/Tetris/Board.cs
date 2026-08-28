@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -63,6 +64,7 @@ public class Board : MonoBehaviour
     private void Start()
     {
         dreamloLeaderboard = GetComponent<DreamloLeaderboard>();
+        this.level = 0;
         SpawnPiece();
     }
 
@@ -81,6 +83,12 @@ public class Board : MonoBehaviour
             linesText.text = this.lines.ToString();
             scoreText.text = this.score.ToString();
         }
+    }
+
+    public float GetStepDelayForLevel(int currentLevel)
+    {
+        float delay = Mathf.Max(0.08f, 0.85f - (currentLevel * 0.08f));
+        return delay;
     }
 
     public void SpawnPiece()
@@ -115,7 +123,7 @@ public class Board : MonoBehaviour
         }
 
         this.activePiece.Initialize(this, this.spawnPosition, data);
-        this.activePiece.stepDelay = 1f;
+        this.activePiece.stepDelay = GetStepDelayForLevel(this.level);
 
         if (IsValidPosition(this.activePiece, this.spawnPosition))
         {
@@ -168,6 +176,11 @@ public class Board : MonoBehaviour
         gameOverPanel.SetActive(true);
         dreamloLeaderboard.UploadScore(score);
 
+        if (AudioManager.instance != null)
+        {
+            AudioManager.instance.PlaySfx(GlobalSfx.GameOver);
+        }
+
         lines = 0;
         levelLines = 0;
         level = 0;
@@ -189,6 +202,7 @@ public class Board : MonoBehaviour
         heldPiece = null;
         canHold = true;
         pieceBag.Clear();
+        SpawnPiece();
     }
 
     public void Set(Piece piece)
@@ -229,7 +243,6 @@ public class Board : MonoBehaviour
         return true;
     }
 
-
     void OnDrawGizmos()
     {
         Gizmos.color = new Color(0.0f, 1.0f, 0.0f);
@@ -244,23 +257,75 @@ public class Board : MonoBehaviour
     public void ClearLines(bool isTSpin = false)
     {
         RectInt bounds = this.Bounds;
-        int row = bounds.yMin;
-        int clearedLines = 0;
+        List<int> fullRows = new List<int>();
 
-        while (row < bounds.yMax)
+        for (int row = bounds.yMin; row < bounds.yMax; row++)
         {
             if (IsLineFull(row))
             {
-                LineClear(row);
-                lines++;
-                levelLines++;
-                clearedLines++;
-            }
-            else
-            {
-                row++;
+                fullRows.Add(row);
             }
         }
+
+        if (fullRows.Count > 0)
+        {
+            StartCoroutine(LineClearRoutine(fullRows, isTSpin));
+        }
+        else
+        {
+            if (isTSpin)
+            {
+                int multiplier = level + 1;
+                score += 400 * multiplier;
+            }
+
+            SpawnPiece();
+        }
+    }
+
+    private IEnumerator LineClearRoutine(List<int> fullRows, bool isTSpin)
+    {
+        RectInt bounds = this.Bounds;
+
+        Dictionary<Vector3Int, TileBase> savedTiles = new Dictionary<Vector3Int, TileBase>();
+        foreach (int row in fullRows)
+        {
+            for (int col = bounds.xMin; col < bounds.xMax; col++)
+            {
+                Vector3Int pos = new Vector3Int(col, row, 0);
+                savedTiles[pos] = this.tilemap.GetTile(pos);
+            }
+        }
+
+        for (int flash = 0; flash < 3; flash++)
+        {
+            foreach (var kvp in savedTiles)
+            {
+                this.tilemap.SetTile(kvp.Key, null);
+            }
+            yield return new WaitForSeconds(0.045f);
+
+            foreach (var kvp in savedTiles)
+            {
+                this.tilemap.SetTile(kvp.Key, kvp.Value);
+            }
+            yield return new WaitForSeconds(0.045f);
+        }
+
+        foreach (var kvp in savedTiles)
+        {
+            this.tilemap.SetTile(kvp.Key, null);
+        }
+
+        fullRows.Sort((a, b) => b.CompareTo(a));
+        foreach (int row in fullRows)
+        {
+            LineClear(row);
+        }
+
+        int clearedLines = fullRows.Count;
+        lines += clearedLines;
+        levelLines += clearedLines;
 
         int multiplier = level + 1;
 
@@ -268,17 +333,17 @@ public class Board : MonoBehaviour
         {
             switch (clearedLines)
             {
-                case 0:
-                    score += 400 * multiplier; // T-Spin Mini/Zero
-                    break;
                 case 1:
-                    score += 800 * multiplier; // T-Spin Single
+                    score += 800 * multiplier;
                     break;
                 case 2:
-                    score += 1200 * multiplier; // T-Spin Double
+                    score += 1200 * multiplier;
                     break;
                 case 3:
-                    score += 1600 * multiplier; // T-Spin Triple
+                    score += 1600 * multiplier;
+                    break;
+                default:
+                    score += 400 * multiplier;
                     break;
             }
         }
@@ -303,6 +368,7 @@ public class Board : MonoBehaviour
         }
 
         CheckLevelLines();
+        SpawnPiece();
     }
 
 
@@ -311,11 +377,17 @@ public class Board : MonoBehaviour
         if (levelLines >= 10)
         {
             level++;
-            AudioManager.instance.PlaySfx(GlobalSfx.LevelUp);
-            ColourChanger.instance.ChangeColour(Random.Range(0, ColourChanger.instance.colorPalettes.Length));
-            if (activePiece.stepDelay > 0.1f)
+            if (AudioManager.instance != null)
             {
-                activePiece.stepDelay = activePiece.stepDelay - 0.05f;
+                AudioManager.instance.PlaySfx(GlobalSfx.LevelUp);
+            }
+            if (ColourChanger.instance != null && ColourChanger.instance.colorPalettes != null && ColourChanger.instance.colorPalettes.Length > 0)
+            {
+                ColourChanger.instance.ChangeColour(Random.Range(0, ColourChanger.instance.colorPalettes.Length));
+            }
+            if (activePiece != null)
+            {
+                activePiece.stepDelay = GetStepDelayForLevel(this.level);
             }
             levelLines = 0;
         }
