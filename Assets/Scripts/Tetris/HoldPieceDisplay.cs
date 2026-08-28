@@ -37,13 +37,25 @@ public class HoldPieceDisplay : MonoBehaviour
         return a.Value.tetromino == b.Value.tetromino;
     }
 
+    private Vector3Int GetPieceOffset(Tetromino tetromino)
+    {
+        switch (tetromino)
+        {
+            case Tetromino.I:
+                return Vector3Int.zero;
+            default:
+                return Vector3Int.zero;
+        }
+    }
+
     private void DisplayPiece(TetrominoData data)
     {
         Vector2Int[] cells = data.cells;
+        Vector3Int offset = GetPieceOffset(data.tetromino);
         
         for (int i = 0; i < cells.Length; i++)
         {
-            Vector3Int tilePosition = displayPosition + (Vector3Int)cells[i];
+            Vector3Int tilePosition = displayPosition + offset + (Vector3Int)cells[i];
             holdTilemap.SetTile(tilePosition, data.tile);
         }
     }
@@ -53,10 +65,11 @@ public class HoldPieceDisplay : MonoBehaviour
         if (lastDisplayedPiece.HasValue)
         {
             Vector2Int[] cells = lastDisplayedPiece.Value.cells;
+            Vector3Int offset = GetPieceOffset(lastDisplayedPiece.Value.tetromino);
             
             for (int i = 0; i < cells.Length; i++)
             {
-                Vector3Int tilePosition = displayPosition + (Vector3Int)cells[i];
+                Vector3Int tilePosition = displayPosition + offset + (Vector3Int)cells[i];
                 holdTilemap.SetTile(tilePosition, null);
             }
         }

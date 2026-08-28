@@ -16,6 +16,11 @@ public class Board : MonoBehaviour
     public NextPieceDisplay nextPieceDisplay;
     public Vector2Int boardSize = new Vector2Int(10, 20);
 
+    public GameObject pausePanel;
+    public bool isPaused { get; private set; }
+    private GameObject autoPauseObject;
+    private bool isCurtainRunning;
+
     public TetrominoData? heldPiece { get; private set; }
     public bool canHold { get; private set; } = true;
 
@@ -70,18 +75,121 @@ public class Board : MonoBehaviour
 
     private void Update()
     {
+        if (playerInput != null && playerInput.Movement.Start.WasPressedThisFrame())
+        {
+            if (!isGameOver && !isCurtainRunning)
+            {
+                TogglePause();
+            }
+        }
+
         if (isGameOver)
         {
-            if (Input.anyKeyDown)
+            if (Input.anyKeyDown && !isCurtainRunning)
             {
                 Restart();
             }
+            return;
+        }
+
+        if (isPaused) return;
+
+        levelText.text = this.level.ToString();
+        linesText.text = this.lines.ToString();
+        scoreText.text = this.score.ToString();
+    }
+
+    private Coroutine pauseBlinkCoroutine;
+
+    public void TogglePause()
+    {
+        isPaused = !isPaused;
+
+        if (pausePanel != null)
+        {
+            pausePanel.SetActive(isPaused);
         }
         else
         {
-            levelText.text = this.level.ToString();
-            linesText.text = this.lines.ToString();
-            scoreText.text = this.score.ToString();
+            EnsureAutoPauseObject();
+            if (autoPauseObject != null)
+            {
+                autoPauseObject.SetActive(isPaused);
+                if (isPaused)
+                {
+                    if (pauseBlinkCoroutine != null) StopCoroutine(pauseBlinkCoroutine);
+                    pauseBlinkCoroutine = StartCoroutine(PauseBlinkRoutine());
+                }
+                else
+                {
+                    if (pauseBlinkCoroutine != null)
+                    {
+                        StopCoroutine(pauseBlinkCoroutine);
+                        pauseBlinkCoroutine = null;
+                    }
+                }
+            }
+        }
+
+        if (AudioManager.instance != null)
+        {
+            AudioManager.instance.PlaySfx(GlobalSfx.Click);
+        }
+    }
+
+    private IEnumerator PauseBlinkRoutine()
+    {
+        TextMeshPro tmp = autoPauseObject != null ? autoPauseObject.GetComponentInChildren<TextMeshPro>() : null;
+        if (tmp == null) yield break;
+
+        while (isPaused)
+        {
+            tmp.enabled = !tmp.enabled;
+            yield return new WaitForSecondsRealtime(0.4f);
+        }
+        tmp.enabled = true;
+    }
+
+    private void EnsureAutoPauseObject()
+    {
+        if (autoPauseObject == null)
+        {
+            autoPauseObject = new GameObject("PauseOverlay");
+            autoPauseObject.transform.SetParent(this.transform, false);
+            autoPauseObject.transform.localPosition = new Vector3(Bounds.center.x, Bounds.center.y, 0);
+
+            GameObject bg = new GameObject("PauseBG");
+            bg.transform.SetParent(autoPauseObject.transform, false);
+            bg.transform.localPosition = Vector3.zero;
+            SpriteRenderer sr = bg.AddComponent<SpriteRenderer>();
+            
+            Texture2D tex = new Texture2D(1, 1);
+            tex.SetPixel(0, 0, new Color(0.6f, 0.76f, 0.16f, 0.95f));
+            tex.Apply();
+            sr.sprite = Sprite.Create(tex, new Rect(0, 0, 1, 1), new Vector2(0.5f, 0.5f), 1f);
+            sr.drawMode = SpriteDrawMode.Sliced;
+            sr.size = new Vector2(7f, 2.5f);
+            sr.sortingOrder = 50;
+
+            GameObject textObj = new GameObject("PauseText");
+            textObj.transform.SetParent(autoPauseObject.transform, false);
+            textObj.transform.localPosition = Vector3.zero;
+            TextMeshPro tmp = textObj.AddComponent<TextMeshPro>();
+            
+            if (levelText != null && levelText.font != null)
+            {
+                tmp.font = levelText.font;
+            }
+            tmp.text = "PAUSE";
+            tmp.fontSize = 12;
+            tmp.alignment = TextAlignmentOptions.Center;
+            tmp.fontStyle = FontStyles.Bold;
+            tmp.color = new Color(0.04f, 0.2f, 0.04f, 1f);
+
+            MeshRenderer mr = textObj.GetComponent<MeshRenderer>();
+            if (mr != null) mr.sortingOrder = 51;
+
+            autoPauseObject.SetActive(false);
         }
     }
 
@@ -93,7 +201,7 @@ public class Board : MonoBehaviour
 
     public void SpawnPiece()
     {
-        if (isGameOver) return;
+        if (isGameOver || isCurtainRunning) return;
         if (this.tetrominoes == null || this.tetrominoes.Length == 0)
         {
             Debug.LogWarning("Board: tetromino list is empty; cannot spawn piece.", this);
@@ -122,6 +230,7 @@ public class Board : MonoBehaviour
             data = this.tetrominoes[RandomizeTetromino()];
         }
 
+        this.activePiece.enabled = true;
         this.activePiece.Initialize(this, this.spawnPosition, data);
         this.activePiece.stepDelay = GetStepDelayForLevel(this.level);
 
@@ -170,31 +279,64 @@ public class Board : MonoBehaviour
 
     private void GameOver()
     {
+        if (isGameOver) return;
         isGameOver = true;
+        StartCoroutine(GameOverCurtainRoutine());
+    }
+
+    private IEnumerator GameOverCurtainRoutine()
+    {
+        isCurtainRunning = true;
+        if (activePiece != null) activePiece.enabled = false;
+
+        Tile curtainTile = (tetrominoes != null && tetrominoes.Length > 0) ? tetrominoes[0].tile : null;
+        RectInt bounds = this.Bounds;
+
+        for (int row = bounds.yMin; row < bounds.yMax; row++)
+        {
+            for (int col = bounds.xMin; col < bounds.xMax; col++)
+            {
+                Vector3Int pos = new Vector3Int(col, row, 0);
+                this.tilemap.SetTile(pos, curtainTile);
+            }
+            yield return new WaitForSeconds(0.025f);
+        }
+
+        yield return new WaitForSeconds(0.15f);
+
+        for (int row = bounds.yMax - 1; row >= bounds.yMin; row--)
+        {
+            for (int col = bounds.xMin; col < bounds.xMax; col++)
+            {
+                Vector3Int pos = new Vector3Int(col, row, 0);
+                this.tilemap.SetTile(pos, null);
+            }
+            yield return new WaitForSeconds(0.025f);
+        }
+
         this.tilemap.ClearAllTiles();
-        this.gameObject.GetComponent<Piece>().enabled = false;
-        gameOverPanel.SetActive(true);
-        dreamloLeaderboard.UploadScore(score);
+        if (gameOverPanel != null) gameOverPanel.SetActive(true);
+        if (dreamloLeaderboard != null) dreamloLeaderboard.UploadScore(score);
 
         if (AudioManager.instance != null)
         {
             AudioManager.instance.PlaySfx(GlobalSfx.GameOver);
         }
 
-        lines = 0;
-        levelLines = 0;
-        level = 0;
-        score = 0;
-        heldPiece = null;
-        canHold = true;
-        pieceBag.Clear();
+        isCurtainRunning = false;
     }
 
     private void Restart()
     {
-        this.gameObject.GetComponent<Piece>().enabled = true;
+        if (isCurtainRunning) return;
+        StopAllCoroutines();
+        this.tilemap.ClearAllTiles();
+        if (this.activePiece != null) this.activePiece.enabled = true;
         isGameOver = false;
-        gameOverPanel.SetActive(false);
+        isPaused = false;
+        if (pausePanel != null) pausePanel.SetActive(false);
+        if (autoPauseObject != null) autoPauseObject.SetActive(false);
+        if (gameOverPanel != null) gameOverPanel.SetActive(false);
         lines = 0;
         levelLines = 0;
         level = 0;

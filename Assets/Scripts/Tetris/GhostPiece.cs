@@ -15,7 +15,7 @@ public class GhostPiece : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (board == null || board.isGameOver || activePiece == null || !activePiece.enabled)
+        if (board == null || board.isGameOver || board.isPaused || activePiece == null || !activePiece.enabled)
         {
             Clear();
             return;

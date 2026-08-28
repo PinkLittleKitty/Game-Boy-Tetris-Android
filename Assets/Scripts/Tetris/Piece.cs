@@ -53,7 +53,7 @@ public class Piece : MonoBehaviour
 
     private void Update()
     {
-        if (this.board == null || this.board.isGameOver) return;
+        if (this.board == null || this.board.isGameOver || this.board.isPaused) return;
 
         this.board.Clear(this);
 
