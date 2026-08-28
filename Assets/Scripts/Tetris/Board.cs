@@ -319,7 +319,6 @@ public class Board : MonoBehaviour
 
         this.tilemap.ClearAllTiles();
         if (gameOverPanel != null) gameOverPanel.SetActive(true);
-        leaderboard.UploadScore(score);
 
         if (AudioManager.instance != null)
         {
