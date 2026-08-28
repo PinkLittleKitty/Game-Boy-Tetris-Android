@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -7,7 +8,7 @@ public class Board : MonoBehaviour
     public Tilemap tilemap { get; private set;}
     public Piece activePiece { get; private set; }
     public TetrominoData[] tetrominoes;
-    private int lastTetromino;
+    private readonly List<int> pieceBag = new List<int>();
     public Vector3Int spawnPosition;
     
     [Header("Piece Preview")]
@@ -128,16 +129,35 @@ public class Board : MonoBehaviour
 
     public int RandomizeTetromino()
     {
-        int random1 = Random.Range(0, this.tetrominoes.Length);
-        if (random1 == lastTetromino)
+        if (this.tetrominoes == null || this.tetrominoes.Length == 0) return 0;
+
+        if (pieceBag.Count == 0)
         {
-            int random2 = Random.Range(0, this.tetrominoes.Length);
-            lastTetromino = random2;
-            return random2;
+            RefillBag();
         }
 
-        lastTetromino = random1;
-        return random1;
+        int index = pieceBag[0];
+        pieceBag.RemoveAt(0);
+        return index;
+    }
+
+    private void RefillBag()
+    {
+        List<int> newBag = new List<int>();
+        for (int i = 0; i < this.tetrominoes.Length; i++)
+        {
+            newBag.Add(i);
+        }
+
+        for (int i = newBag.Count - 1; i > 0; i--)
+        {
+            int randIndex = Random.Range(0, i + 1);
+            int temp = newBag[i];
+            newBag[i] = newBag[randIndex];
+            newBag[randIndex] = temp;
+        }
+
+        pieceBag.AddRange(newBag);
     }
 
     private void GameOver()
@@ -154,6 +174,7 @@ public class Board : MonoBehaviour
         score = 0;
         heldPiece = null;
         canHold = true;
+        pieceBag.Clear();
     }
 
     private void Restart()
@@ -167,6 +188,7 @@ public class Board : MonoBehaviour
         score = 0;
         heldPiece = null;
         canHold = true;
+        pieceBag.Clear();
     }
 
     public void Set(Piece piece)
@@ -219,7 +241,7 @@ public class Board : MonoBehaviour
         Gizmos.DrawWireCube(new Vector3(rect.center.x, rect.center.y, 0.01f), new Vector3(rect.size.x, rect.size.y, 0.01f));
     }
 
-    public void ClearLines()
+    public void ClearLines(bool isTSpin = false)
     {
         RectInt bounds = this.Bounds;
         int row = bounds.yMin;
@@ -240,21 +262,44 @@ public class Board : MonoBehaviour
             }
         }
 
-        int scorePerLine = baseScorePerLine * (level + 1);
-        switch (clearedLines)
+        int multiplier = level + 1;
+
+        if (isTSpin)
         {
-            case 1:
-                score += scorePerLine * 1;
-                break;
-            case 2:
-                score += scorePerLine * 3;
-                break;
-            case 3:
-                score += scorePerLine * 5;
-                break;
-            case 4:
-                score += scorePerLine * 8;
-                break;
+            switch (clearedLines)
+            {
+                case 0:
+                    score += 400 * multiplier; // T-Spin Mini/Zero
+                    break;
+                case 1:
+                    score += 800 * multiplier; // T-Spin Single
+                    break;
+                case 2:
+                    score += 1200 * multiplier; // T-Spin Double
+                    break;
+                case 3:
+                    score += 1600 * multiplier; // T-Spin Triple
+                    break;
+            }
+        }
+        else
+        {
+            int scorePerLine = baseScorePerLine * multiplier;
+            switch (clearedLines)
+            {
+                case 1:
+                    score += scorePerLine * 1;
+                    break;
+                case 2:
+                    score += scorePerLine * 3;
+                    break;
+                case 3:
+                    score += scorePerLine * 5;
+                    break;
+                case 4:
+                    score += scorePerLine * 8;
+                    break;
+            }
         }
 
         CheckLevelLines();
