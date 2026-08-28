@@ -60,10 +60,10 @@ public class NameEntryScreen : MonoBehaviour
     void UpdateNameText()
     {
         string displayedName = playerName;
-        if (showLetter)
-            displayedName = displayedName;
-        else
+        if (!showLetter)
+        {
             displayedName = displayedName.Remove(currentIndex, 1).Insert(currentIndex, "_");
+        }
         nameText.text = displayedName;
     }
 

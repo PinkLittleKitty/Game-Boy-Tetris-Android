@@ -37,7 +37,7 @@ public class Board : MonoBehaviour
     public GameObject gameOverPanel;
     public bool isGameOver;
 
-    private DreamloLeaderboard dreamloLeaderboard;
+    private Leaderboard leaderboard;
 
     public RectInt Bounds
     {
@@ -68,7 +68,7 @@ public class Board : MonoBehaviour
 
     private void Start()
     {
-        dreamloLeaderboard = GetComponent<DreamloLeaderboard>();
+        leaderboard = GetComponent<Leaderboard>();
         this.level = 0;
         SpawnPiece();
     }
@@ -281,6 +281,9 @@ public class Board : MonoBehaviour
     {
         if (isGameOver) return;
         isGameOver = true;
+
+        leaderboard.UploadScore(this.score);
+
         StartCoroutine(GameOverCurtainRoutine());
     }
 
@@ -316,7 +319,7 @@ public class Board : MonoBehaviour
 
         this.tilemap.ClearAllTiles();
         if (gameOverPanel != null) gameOverPanel.SetActive(true);
-        if (dreamloLeaderboard != null) dreamloLeaderboard.UploadScore(score);
+        leaderboard.UploadScore(score);
 
         if (AudioManager.instance != null)
         {

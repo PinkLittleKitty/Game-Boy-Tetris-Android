@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
@@ -9,7 +10,7 @@ public class LevelSelect : MonoBehaviour
     [SerializeField] private TextMeshProUGUI levelText;
     [SerializeField] private TextMeshProUGUI[] leaderboardTexts = new TextMeshProUGUI[3];
     [SerializeField] private Animator blackFade;
-    [SerializeField] private DreamloLeaderboard dreamloLeaderboard;
+    [SerializeField] private Leaderboard leaderboard;
     
     private int selectedLevel = 0;
     private bool isLoadingScores = false;
@@ -26,67 +27,84 @@ public class LevelSelect : MonoBehaviour
     {
         if (isChangingScene) return;
         
-        if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            selectedLevel = (selectedLevel - 1 + 10) % 10;
-            UpdateLevelDisplay();
-            AudioManager.instance.PlaySfx(GlobalSfx.Click);
+            ChangeLevel(-1);
         }
-        else if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
+        else if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
         {
-            selectedLevel = (selectedLevel + 1) % 10;
-            UpdateLevelDisplay();
-            AudioManager.instance.PlaySfx(GlobalSfx.Click);
+            ChangeLevel(1);
         }
         else if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Space))
         {
             StartGame();
         }
-        else if (Input.GetKeyDown(KeyCode.Escape))
+    }
+    
+    public void ChangeLevel(int direction)
+    {
+        selectedLevel += direction;
+        
+        if (selectedLevel < 0)
         {
-            GoBackToMainMenu();
+            selectedLevel = 9;
         }
+        else if (selectedLevel > 9)
+        {
+            selectedLevel = 0;
+        }
+        
+        UpdateLevelDisplay();
+    }
+    
+    public void SetLevel(int level)
+    {
+        selectedLevel = Mathf.Clamp(level, 0, 9);
+        UpdateLevelDisplay();
     }
     
     private void UpdateLevelDisplay()
     {
-        levelText.text = selectedLevel.ToString();
+        if (levelText != null)
+        {
+            levelText.text = selectedLevel.ToString();
+        }
+    }
+    
+    public void StartGame()
+    {
+        if (isChangingScene) return;
+        
+        isChangingScene = true;
         PlayerPrefs.SetInt("StartingLevel", selectedLevel);
-    }
-    
-    private void StartGame()
-    {
-        if (isChangingScene) return;
+        PlayerPrefs.Save();
         
-        AudioManager.instance.PlaySfx(GlobalSfx.Click);
-        blackFade.SetTrigger("StartBlackFade");
-        Invoke("LoadGameScene", 1.5f);
-        isChangingScene = true;
+        StartCoroutine(StartGameCoroutine());
     }
     
-    private void GoBackToMainMenu()
+    private IEnumerator StartGameCoroutine()
     {
-        if (isChangingScene) return;
+        if (blackFade != null)
+        {
+            blackFade.Play("FadeToBlack");
+            yield return new WaitForSeconds(1.0f);
+        }
         
-        AudioManager.instance.PlaySfx(GlobalSfx.Click);
-        blackFade.SetTrigger("StartBlackFade");
-        Invoke("LoadMainMenu", 1.5f);
-        isChangingScene = true;
-    }
-    
-    private void LoadGameScene()
-    {
-        SceneManager.LoadScene(2);
-    }
-    
-    private void LoadMainMenu()
-    {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
     
     private void LoadTopScores()
     {
         if (isLoadingScores) return;
+
+        if (leaderboard == null || string.IsNullOrEmpty(leaderboard.publicCode))
+        {
+            for (int i = 0; i < leaderboardTexts.Length; i++)
+            {
+                leaderboardTexts[i].text = "Offline";
+            }
+            return;
+        }
         
         for (int i = 0; i < leaderboardTexts.Length; i++)
         {
@@ -100,20 +118,26 @@ public class LevelSelect : MonoBehaviour
     {
         isLoadingScores = true;
         
-        string url = "http://dreamlo.com/lb/" + dreamloLeaderboard.publicCode + "/pipe/3";
+        string baseUrl = (leaderboard != null && !string.IsNullOrEmpty(leaderboard.ApiUrl))
+            ? leaderboard.ApiUrl
+            : "https://fossboard.justneki.deno.net";
+
+        string url = $"{baseUrl}/lb/{leaderboard.publicCode}/pipe/3";
         
-        WWW www = new WWW(url);
-        yield return www;
-        
-        if (string.IsNullOrEmpty(www.error))
+        using (UnityWebRequest www = UnityWebRequest.Get(url))
         {
-            ParseLeaderboardData(www.text);
-        }
-        else
-        {
-            for (int i = 0; i < leaderboardTexts.Length; i++)
+            yield return www.SendWebRequest();
+            
+            if (www.result == UnityWebRequest.Result.Success)
             {
-                leaderboardTexts[i].text = "No scores";
+                ParseLeaderboardData(www.downloadHandler.text);
+            }
+            else
+            {
+                for (int i = 0; i < leaderboardTexts.Length; i++)
+                {
+                    leaderboardTexts[i].text = "No scores";
+                }
             }
         }
         

@@ -71,10 +71,10 @@
     <Compile Include="Assets/Scripts/Tetris/NextPieceDisplay.cs" />
     <Compile Include="Assets/Scripts/Utilities/TMPFadeOut.cs" />
     <Compile Include="Assets/Scripts/Tetris/HoldPieceDisplay.cs" />
+    <Compile Include="Assets/Scripts/Leaderboard.cs" />
     <Compile Include="Assets/Scripts/VirtualButtons/VirtualDPad.cs" />
     <Compile Include="Assets/Scripts/LevelSelect.cs" />
     <Compile Include="Assets/Scripts/MainMenu.cs" />
-    <Compile Include="Assets/Scripts/DreamloLeaderboard.cs" />
     <Compile Include="Assets/Scripts/Misc/DataSaver.cs" />
     <Compile Include="Assets/Scripts/MuffleButtonController.cs" />
     <Compile Include="Assets/Scripts/Tetris/Data.cs" />
